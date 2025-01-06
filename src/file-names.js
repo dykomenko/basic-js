@@ -16,12 +16,22 @@ const { NotImplementedError } = require('../extensions/index.js');
  *
  */
 function renameFiles(names) {
-  const out = names;
-  for (let index = 0; index < out.length; index++) {
-    if (out.indexOf(out[index]) < index) out[index] += '(1)';
+  // решение, конечно же, не оптимальное
+  const out = [];
+  for (let index = 0; index < names.length; index++) {
+    let name = names[index];
+    let counter = 1;
+    let newName = name;
+    while (out.includes(newName)) {
+      newName = `${name}(${counter})`;
+      counter++;
+    }
+    out.push(newName);
   }
+
   return out;
 }
+
 
 module.exports = {
   renameFiles
